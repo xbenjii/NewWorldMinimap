@@ -1,5 +1,5 @@
 import React from 'react';
-import { load, SimpleStorageSettings } from '../logic/storage';
+import { load, simpleStorageDefaultSettings, SimpleStorageSettings } from '../logic/storage';
 
 export type MinimapWindowType = 'desktop' | 'inGame';
 
@@ -16,17 +16,24 @@ export interface IAppContext {
     minimapWindowType: MinimapWindowType | undefined;
 }
 
+export function loadAppContextSettings(): AppContextSettings {
+    return {
+        showHeader: load('showHeader'),
+        showToolbar: load('showToolbar'),
+        transparentHeader: load('transparentHeader'),
+        transparentToolbar: load('transparentToolbar'),
+        showText: load('showText'),
+        iconScale: load('iconScale'),
+        zoomLevel: load('zoomLevel'),
+        opacity: load('opacity'),
+        shape: load('shape'),
+        iconSettings: undefined,
+    };
+}
+
 export const defaultAppContext: IAppContext = {
     settings: {
-        showHeader: load('showHeader', true),
-        showToolbar: load('showToolbar', false),
-        transparentHeader: load('transparentHeader', true),
-        transparentToolbar: load('transparentToolbar', true),
-        showText: load('showText', false),
-        iconScale: load('iconScale', 1.5),
-        zoomLevel: load('zoomLevel', 2),
-        opacity: load('opacity', 1),
-        shape: load('shape', 'none'),
+        ...simpleStorageDefaultSettings,
         iconSettings: undefined,
     },
     update: () => { },
