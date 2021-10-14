@@ -45,7 +45,7 @@ export default function Minimap(props: IProps) {
 
     const dynamicStyling: React.CSSProperties = {};
     if (appContext.isTransparentSurface) {
-        dynamicStyling.clipPath = appContext.value.shape;
+        dynamicStyling.clipPath = appContext.settings.shape;
     }
 
     const draw = async () => {
@@ -54,9 +54,9 @@ export default function Minimap(props: IProps) {
         lastDraw.current = currentDraw;
 
         const angle = Math.atan2(currentPosition.x - lastPosition.x, currentPosition.y - lastPosition.y);
-        const zoomLevel = appContext.value.zoomLevel;
+        const zoomLevel = appContext.settings.zoomLevel;
 
-        setIconScale(appContext.value.iconScale);
+        setIconScale(appContext.settings.iconScale);
 
         if (!ctx) {
             return;
@@ -98,7 +98,7 @@ export default function Minimap(props: IProps) {
             }
         }
 
-        const iconSettings = appContext.value.iconSettings;
+        const iconSettings = appContext.settings.iconSettings;
 
         if (!iconSettings) {
             return;
@@ -125,7 +125,7 @@ export default function Minimap(props: IProps) {
 
             ctx.drawImage(icon, imgPosCorrected.x - icon.width / 2, imgPosCorrected.y - icon.height / 2);
 
-            if (appContext.value.showText) {
+            if (appContext.settings.showText) {
                 ctx.textAlign = 'center';
                 ctx.font = Math.round(icon.height / 1.5) + 'px sans-serif';
                 ctx.strokeStyle = '#000';

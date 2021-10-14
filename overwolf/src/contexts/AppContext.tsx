@@ -1,24 +1,15 @@
 import React from 'react';
-import { load } from '../logic/storage';
+import { load, SimpleStorageSettings } from '../logic/storage';
 
 export type MinimapWindowType = 'desktop' | 'inGame';
 
-export interface IAppContextData {
-    showHeader: boolean;
-    showToolbar: boolean;
-    transparentHeader: boolean;
-    transparentToolbar: boolean;
-    showText: boolean;
-    iconScale: number;
-    zoomLevel: number;
-    opacity: number;
-    shape: string;
+export type AppContextSettings = SimpleStorageSettings & {
     iconSettings: IconSettings | undefined;
 }
 
 export interface IAppContext {
-    value: IAppContextData;
-    update: (delta: Partial<IAppContextData>) => void;
+    settings: AppContextSettings;
+    update: (delta: Partial<AppContextSettings>) => void;
     toggleFrameMenu: () => void;
     gameRunning: boolean;
     isTransparentSurface: boolean | undefined;
@@ -26,7 +17,7 @@ export interface IAppContext {
 }
 
 export const defaultAppContext: IAppContext = {
-    value: {
+    settings: {
         showHeader: load('showHeader', true),
         showToolbar: load('showToolbar', false),
         transparentHeader: load('transparentHeader', true),
